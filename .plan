@@ -1,0 +1,19 @@
+Architecture plan for Issue #23: Change the app background to green
+
+Project shape:
+- Single Vite + React + TypeScript frontend application.
+- Main shell component lives in src/App.tsx and composes calculator behavior/hooks with CalculatorCard.
+- Calculator state and behavior remain isolated in src/calculator/*; presentational UI remains in src/components/*.
+- Styling is Tailwind utility classes applied directly in JSX, with the full-screen page background controlled by the <main> element in src/App.tsx.
+
+Implementation plan:
+- Update only src/App.tsx for the feature issue by changing the full-screen <main> background utility from the current light neutral tone to Tailwind green-100 (or closest equivalent).
+- Leave CalculatorCard, calculator hooks, text colors, spacing, and all calculator behavior unchanged.
+- No shared type changes or dependency changes are required.
+
+Validation plan:
+- Run the existing unit/e2e/build checks available in package.json as appropriate for the issue session.
+- Since existing tests validate layout/behavior rather than exact background color, expected test changes are none.
+
+Issue dependency notes:
+- There is only one remaining issue (#23), so there are no inter-issue dependencies.
