@@ -15,4 +15,14 @@ describe('CalculatorDisplay', () => {
 
     expect(screen.getByLabelText('Calculator display')).toHaveClass('text-3xl');
   });
+
+  it('keeps very long values on one scrollable line', () => {
+    render(<CalculatorDisplay value="1234567890123456789012345" />);
+
+    expect(screen.getByLabelText('Calculator display')).toHaveClass(
+      'overflow-x-auto',
+      'whitespace-nowrap',
+      'text-2xl',
+    );
+  });
 });

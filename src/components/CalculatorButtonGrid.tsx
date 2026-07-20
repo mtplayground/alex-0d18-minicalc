@@ -24,7 +24,7 @@ export function CalculatorButtonGrid({
   return (
     <div
       aria-label="Calculator keypad"
-      className="mt-6 grid grid-cols-4 gap-3"
+      className="mt-5 grid grid-cols-4 gap-2.5 sm:mt-6 sm:gap-3"
       role="group"
     >
       <CalculatorButton
