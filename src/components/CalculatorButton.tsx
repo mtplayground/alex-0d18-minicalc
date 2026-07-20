@@ -35,7 +35,7 @@ export function CalculatorButton({
 }: CalculatorButtonProps) {
   return (
     <button
-      className={`min-h-14 rounded-md px-3 text-xl font-medium transition duration-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-16 ${variantClasses[variant]} ${pressed ? `${pressedClasses[variant]} translate-y-px` : ''} ${className}`}
+      className={`min-h-14 touch-manipulation select-none rounded-md px-3 text-xl font-medium transition duration-100 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-16 ${variantClasses[variant]} ${pressed ? `${pressedClasses[variant]} translate-y-px` : ''} ${className}`}
       data-key-pressed={pressed ? 'true' : undefined}
       type={type}
       {...props}
