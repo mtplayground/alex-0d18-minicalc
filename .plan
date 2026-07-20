@@ -1,19 +1,22 @@
-Architecture plan for Issue #23: Change the app background to green
+Architecture plan for Issue #25: Change the app background to a colourful gradient
 
 Project shape:
-- Single Vite + React + TypeScript frontend application.
-- Main shell component lives in src/App.tsx and composes calculator behavior/hooks with CalculatorCard.
-- Calculator state and behavior remain isolated in src/calculator/*; presentational UI remains in src/components/*.
-- Styling is Tailwind utility classes applied directly in JSX, with the full-screen page background controlled by the <main> element in src/App.tsx.
+- Single-page Vite + React + TypeScript frontend application.
+- App shell lives in src/App.tsx and renders the full-screen <main> container around CalculatorCard.
+- Calculator logic is isolated in src/calculator/* and should not be touched for this visual-only issue.
+- Presentational calculator pieces live in src/components/*; the background outside the card is controlled at the app shell level.
+- Styling uses Tailwind utility classes directly in JSX, with global Tailwind setup in src/index.css and tailwind.config.js.
 
 Implementation plan:
-- Update only src/App.tsx for the feature issue by changing the full-screen <main> background utility from the current light neutral tone to Tailwind green-100 (or closest equivalent).
-- Leave CalculatorCard, calculator hooks, text colors, spacing, and all calculator behavior unchanged.
-- No shared type changes or dependency changes are required.
+- Implement Issue #25 by updating the <main> className in src/App.tsx from the current solid background utility to a colourful Tailwind gradient, e.g. bg-gradient-to-br with multiple colour stops.
+- Keep layout classes, spacing, text colour, calculator behavior hooks, and component props unchanged.
+- Avoid dependency, build config, route, deployment, or shared type changes.
 
-Validation plan:
-- Run the existing unit/e2e/build checks available in package.json as appropriate for the issue session.
-- Since existing tests validate layout/behavior rather than exact background color, expected test changes are none.
+Testing/validation plan:
+- Run npm run build to verify TypeScript and Vite production compilation.
+- Run npm run test:unit to ensure the visual shell change does not regress calculator behavior or component rendering.
+- Existing tests do not assert the exact background colour, so no test fixture changes should be required unless a new visual assertion is intentionally added.
 
 Issue dependency notes:
-- There is only one remaining issue (#23), so there are no inter-issue dependencies.
+- Only Issue #25 is in scope, so there are no inter-issue dependencies.
+- The change is a one-surface UI styling update in src/App.tsx.
