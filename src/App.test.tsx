@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
@@ -61,5 +61,35 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: 'Clear' }));
 
     expect(screen.getByLabelText('Calculator display')).toHaveTextContent('0');
+  });
+
+  it('maps keyboard input to calculator actions without focusing first', () => {
+    render(<App />);
+
+    for (const key of ['1', '2', '+', '3', 'Enter']) {
+      fireEvent.keyDown(window, { key });
+      fireEvent.keyUp(window, { key });
+    }
+
+    expect(screen.getByLabelText('Calculator display')).toHaveTextContent('15');
+
+    fireEvent.keyDown(window, { key: 'Escape' });
+    fireEvent.keyUp(window, { key: 'Escape' });
+
+    expect(screen.getByLabelText('Calculator display')).toHaveTextContent('0');
+  });
+
+  it('shows matching button feedback while a key is pressed', () => {
+    render(<App />);
+
+    const seven = screen.getByRole('button', { name: '7' });
+
+    fireEvent.keyDown(window, { key: '7' });
+
+    expect(seven).toHaveAttribute('data-key-pressed', 'true');
+
+    fireEvent.keyUp(window, { key: '7' });
+
+    expect(seven).not.toHaveAttribute('data-key-pressed');
   });
 });

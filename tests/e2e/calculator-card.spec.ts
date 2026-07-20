@@ -37,3 +37,34 @@ test('updates the display from button presses and clears errors', async ({
     '0',
   );
 });
+
+test('accepts keyboard entry on page load and shows pressed feedback', async ({
+  page,
+}) => {
+  await page.goto('/');
+
+  await expect(page.getByLabel('Calculator display', { exact: true })).toHaveText(
+    '0',
+  );
+
+  const seven = page.getByRole('button', { name: '7' });
+
+  await page.keyboard.down('7');
+  await expect(seven).toHaveAttribute('data-key-pressed', 'true');
+  await page.keyboard.up('7');
+  await expect(seven).not.toHaveAttribute('data-key-pressed', 'true');
+
+  await page.keyboard.press('-');
+  await page.keyboard.press('5');
+  await page.keyboard.press('Enter');
+
+  await expect(page.getByLabel('Calculator display', { exact: true })).toHaveText(
+    '2',
+  );
+
+  await page.keyboard.press('Delete');
+
+  await expect(page.getByLabel('Calculator display', { exact: true })).toHaveText(
+    '0',
+  );
+});

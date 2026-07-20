@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   calculateEquals,
   chooseOperation,
@@ -8,6 +8,14 @@ import {
   inputDigit,
   type CalculatorOperator,
 } from './engine';
+
+export interface CalculatorActions {
+  clear: () => void;
+  enterDecimal: () => void;
+  enterDigit: (digit: string) => void;
+  enterEquals: () => void;
+  enterOperator: (operator: CalculatorOperator) => void;
+}
 
 export function useCalculator() {
   const [state, setState] = useState(createCalculatorState);
@@ -32,14 +40,19 @@ export function useCalculator() {
     setState((current) => chooseOperation(current, operator));
   }, []);
 
-  return {
-    state,
-    actions: {
+  const actions = useMemo<CalculatorActions>(
+    () => ({
       clear,
       enterDecimal,
       enterDigit,
       enterEquals,
       enterOperator,
-    },
+    }),
+    [clear, enterDecimal, enterDigit, enterEquals, enterOperator],
+  );
+
+  return {
+    state,
+    actions,
   };
 }
