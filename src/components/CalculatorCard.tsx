@@ -1,8 +1,10 @@
 import type { CalculatorOperator } from '../calculator/engine';
+import type { CalculatorButtonId } from '../calculator/useCalculatorKeyboard';
 import { CalculatorButtonGrid } from './CalculatorButtonGrid';
 import { CalculatorDisplay } from './CalculatorDisplay';
 
 interface CalculatorCardProps {
+  activeButton: CalculatorButtonId | null;
   displayValue: string;
   onClear: () => void;
   onDecimal: () => void;
@@ -12,6 +14,7 @@ interface CalculatorCardProps {
 }
 
 export function CalculatorCard({
+  activeButton,
   displayValue,
   onClear,
   onDecimal,
@@ -26,6 +29,7 @@ export function CalculatorCard({
     >
       <CalculatorDisplay value={displayValue} />
       <CalculatorButtonGrid
+        activeButton={activeButton}
         onClear={onClear}
         onDecimal={onDecimal}
         onDigit={onDigit}
