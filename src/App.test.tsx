@@ -44,4 +44,22 @@ describe('App', () => {
 
     expect(screen.getByLabelText('Calculator display')).toHaveTextContent('12');
   });
+
+  it('renders divide-by-zero errors and clears back to zero', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: '8' }));
+    await user.click(screen.getByRole('button', { name: 'Divide' }));
+    await user.click(screen.getByRole('button', { name: '0' }));
+    await user.click(screen.getByRole('button', { name: 'Equals' }));
+
+    expect(screen.getByLabelText('Calculator display')).toHaveTextContent(
+      'Cannot divide by zero',
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Clear' }));
+
+    expect(screen.getByLabelText('Calculator display')).toHaveTextContent('0');
+  });
 });
