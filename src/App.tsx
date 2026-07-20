@@ -7,7 +7,7 @@ function App() {
   const activeButton = useCalculatorKeyboard(actions);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-green-100 p-4 text-zinc-950 sm:p-6">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-pink-400 via-purple-400 to-cyan-400 p-4 text-zinc-950 sm:p-6">
       <CalculatorCard
         activeButton={activeButton}
         displayValue={state.display}
